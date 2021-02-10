@@ -39,7 +39,10 @@ exports.killProcessOnPort = async (port, askQuestion = true) => {
     const foundPort = await portfinder_1.getPortPromise({
         port,
     });
-    if (foundPort !== port) {
+    if(isNaN(port = parseInt(port))) {
+        throw new Error(`Invalid port.`);
+    }
+    else if (foundPort !== port) {
         if (askQuestion) {
             const answer = await inquirer_1.prompt({
                 choices: ['yes', 'no'],
